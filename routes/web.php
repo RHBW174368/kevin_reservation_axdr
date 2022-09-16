@@ -17,4 +17,9 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 
 Auth::routes();
 
-Route::get('/booking', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
+Route::group(['middleware' => 'auth'], function(){
+	Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
+	Route::get('/rooms', [App\Http\Controllers\RoomsController::class, 'index'])->name('rooms.index');
+	Route::get('/booking', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
+});
+
