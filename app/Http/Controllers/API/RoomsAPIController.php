@@ -1,19 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\API\Controller;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use App\Models\Rooms;
+use JWTAuth;
 
-class RoomsController extends Controller
+class RoomsAPIController extends Controller
 {
 	// get: api/rooms/
 	public function index() 
     {
     	$rooms = Rooms::where('active',1)->get();
 
-        return view('rooms/index', compact('rooms'));
+        return $rooms;
     }
 
     // get: api/rooms/id
@@ -21,7 +23,7 @@ class RoomsController extends Controller
     {
     	$room = Rooms::find($id);
 
-    	return view('rooms/index', compact('room'));
+    	return $room;
     }
 
     // delete: api/rooms/id
