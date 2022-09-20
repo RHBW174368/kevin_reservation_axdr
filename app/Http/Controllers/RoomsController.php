@@ -12,7 +12,7 @@ class RoomsController extends Controller
 	public function index() 
     {
     	$rooms = Rooms::where('active',1)->get();
-
+    	
         return view('rooms/index', compact('rooms'));
     }
 
@@ -20,7 +20,7 @@ class RoomsController extends Controller
     public function show($id)
     {
     	$room = Rooms::find($id);
-
+    	
     	return view('rooms/index', compact('room'));
     }
 

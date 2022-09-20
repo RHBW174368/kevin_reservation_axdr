@@ -13,17 +13,38 @@ class RoomsAPIController extends Controller
 	// get: api/rooms/
 	public function index() 
     {
-    	$rooms = Rooms::where('active',1)->get();
-
+    	$rooms = Rooms::where('active',1)
+            ->orderBy('room_name','ASC')
+            ->get();
         return $rooms;
+    }
+
+    // post: api/rooms
+    public function store(Request $request)
+    {
+        $room = new Rooms([
+            'room_name' => $request->input('room_name');
+        ]);
+        $room->save();
+        return response()->json([
+            "message" => "Successfully Created!",
+            "message_status" => "success",
+        ], 200);
+    }
+
+    // put: api/rooms/1
+    public function update($id, Request $request)
+    {
+        $room = Rooms::find($id);
+        $room->update($request->all());
+        return response()->json('Successfully Updated!');
     }
 
     // get: api/rooms/id
     public function show($id)
     {
     	$room = Rooms::find($id);
-
-    	return $room;
+    	return response()->json($room);
     }
 
     // delete: api/rooms/id
@@ -31,7 +52,6 @@ class RoomsAPIController extends Controller
     {
     	$rooms = Rooms::find($id);
     	$rooms->delete();
-
     	return response()->json([
 			"message" => "Successfully Deleted!",
 			"message_status" => "success"
