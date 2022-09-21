@@ -25,8 +25,8 @@
 						<td>{{ $room->description }}</td>
 						<td>{{ $room->active == 1 ? 'yes' : 'no' }}</td>
 						<td>
-							<button name="edit" class="btn btn-sm btn-success">Edit</button>
-							<button name="delete" class="btn btn-sm btn-danger">Delete</button>
+							<!-- <button name="edit" class="btn btn-sm btn-success">Edit</button>
+							<button name="delete" class="btn btn-sm btn-danger">Delete</button> -->
 						</td>
 					</tr>
 					@endforeach

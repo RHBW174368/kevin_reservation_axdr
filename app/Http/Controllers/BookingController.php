@@ -55,7 +55,7 @@ class BookingController extends Controller
     		throw ValidationException::withMessages(['start_date' => 'Selected date should be weekdays only!']);
     	}
 
-        $is_taken = Bookings::checkAvailability($room_id,$booking_start,$booking_end);
+        $is_taken = Bookings::checkAvailability($room_id,$booking_start,$booking_end,$is_edit);
 
         /* Save If Date/Time is Available */
         if(!$is_taken)
@@ -67,7 +67,9 @@ class BookingController extends Controller
 			}else{
 				$bookings = Bookings::updateBooking($room_id,$booking_start,$booking_end,Auth::id(),$is_edit);
 			}
+
     		return $bookings;
+
     	}else{
     		throw ValidationException::withMessages(['start_date' => 'Selected date is not available!']);
     	}
@@ -110,12 +112,41 @@ class BookingController extends Controller
                 ->addColumn('action', function($row){
                 	if($row->user_id == Auth::id())
             		{
-	                    $actionBtn = '<a href="javascript:void(0)" booking-id-attrib="'. $row->booking_id .'" class="editBooking btn btn-success btn-sm" >Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+	                    $actionBtn = '<a href="javascript:void(0)" booking-id-attrib="'. $row->booking_id .'" class="editBooking btn btn-success btn-sm" >Edit</a> <a href="javascript:void(0)" class="deleteBooking btn btn-danger btn-sm" booking-id-attrib="'. $row->booking_id .'">Delete</a>';
 	                    return $actionBtn;
                 	}
                 })
                 ->rawColumns(['action'])
                 ->make(true);
 		}
+    }
+
+    public function fetchBooking(Request $request)
+    {
+    	$request->validate([
+            'booking_id' => 'required|integer'
+        ]);
+
+        $booking_id = $request->booking_id;
+    	$booking =  Bookings::getBookingByID($booking_id);
+
+    	return $booking;
+    }
+
+    public function deleteBooking(Request $request)
+    {
+    	$request->validate([
+            'booking_id' => 'required|integer'
+        ]);
+
+        $booking_id = $request->booking_id;
+    	$booking =  Bookings::where('id',$booking_id)
+    		->where('user_id',Auth::id())
+    		->delete();
+
+		return response()->json([
+			'message' => 'Succesfully Deleted Booking!',
+			'message_status' => 'success'
+		], 200);
     }
 }

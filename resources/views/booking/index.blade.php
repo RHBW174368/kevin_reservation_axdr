@@ -39,6 +39,12 @@
 						<button id="checkAvailabilityBtn" name="checkAvailabilityBtn" class="btn btn-md btn-primary">Save Booking</button>
 					</div>
 			    </div>
+			    <div class="col col-md-6">
+					<div class="mb-3">
+		    			<input type="hidden" name="is_edit" value=""/>
+						<button id="clearFilter" name="clearFilter" class="btn btn-md btn-success">Reset Filters</button>
+					</div>
+			    </div>
 		  	</div>
 	    </div>
 	    <div class="col col-md-8">

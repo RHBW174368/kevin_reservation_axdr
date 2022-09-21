@@ -21,6 +21,8 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/users', [App\Http\Controllers\UserController::class, 'index'])->name('users.index');
 	Route::get('/rooms', [App\Http\Controllers\RoomsController::class, 'index'])->name('rooms.index');
 	Route::get('/booking', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
+	Route::delete('/booking', [App\Http\Controllers\BookingController::class, 'deleteBooking'])->name('booking.delete');
 	Route::post('/booking/validate-booking', [App\Http\Controllers\BookingController::class, 'validateBooking'])->name('booking.validate-booking');
 	Route::get('/booking/list', [App\Http\Controllers\BookingController::class, 'getBookings'])->name('booking.list');
+	Route::get('/booking/fetch', [App\Http\Controllers\BookingController::class, 'fetchBooking'])->name('booking.fetch');
 });
