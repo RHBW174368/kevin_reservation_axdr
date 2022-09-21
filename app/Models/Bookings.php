@@ -44,4 +44,30 @@ class Bookings extends Model
     		],500);
     	}
     }
+
+    public function updateBooking($room_id,$booking_start,$booking_end,$user_id,$booking_id)
+    {
+    	try
+    	{
+	    	$booking = Bookings::where('id',$booking_id)
+	    		->where('user_id', Auth::id())
+	    		->update([
+	    			'room_id' => $room_id,
+	    			'booking_start' => $booking_start,
+	    			'booking_end' => $booking_end
+	    		]);
+
+	    	return response()->json([
+				"message" => "Successfully Updated Booking!",
+				"message_status" => "success",
+				"data" => $booking
+			],200);
+    	}catch(\Exception $e){
+
+    		return response()->json([
+    			"message" => "Booking Update Failed! " . $e->getMessage(),
+    			"message_status" => "failed"
+    		],500);
+    	}
+    }
 }

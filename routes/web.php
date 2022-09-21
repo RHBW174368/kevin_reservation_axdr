@@ -22,4 +22,5 @@ Route::group(['middleware' => 'auth'], function(){
 	Route::get('/rooms', [App\Http\Controllers\RoomsController::class, 'index'])->name('rooms.index');
 	Route::get('/booking', [App\Http\Controllers\BookingController::class, 'index'])->name('booking.index');
 	Route::post('/booking/validate-booking', [App\Http\Controllers\BookingController::class, 'validateBooking'])->name('booking.validate-booking');
+	Route::get('/booking/list', [App\Http\Controllers\BookingController::class, 'getBookings'])->name('booking.list');
 });
