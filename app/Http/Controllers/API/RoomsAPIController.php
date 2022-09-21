@@ -23,7 +23,8 @@ class RoomsAPIController extends Controller
     public function store(Request $request)
     {
         $room = new Rooms([
-            'room_name' => $request->input('room_name');
+            'room_name' => $request->input('room_name'),
+            'room_description' => $request->input('room_name')
         ]);
         $room->save();
         return response()->json([
