@@ -113,6 +113,7 @@ $(document).ready(function(){
 		$("#checkAvailabilityBtn").text("Save Booking");
 		$("input[type='date']").val("");
 		$("input[type='time']").val("");
+		$("input[name='is_edit']").val("");
 		refreshDatatable();
 	});
 
